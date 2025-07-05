@@ -8,29 +8,35 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      height: 100vh;
+      justify-content: flex-start; /* ← 中央から上寄せに変更 */
+      min-height: 100vh; /* ← 高さを min に変更 */
+      padding: 40px 20px; /* ← 余白追加 */
       margin: 0;
       font-family: Arial, sans-serif;
     }
+
     .form-group {
       margin: 20px 0;
       text-align: center;
     }
+
     label {
       display: block;
       font-size: 1.2rem;
       margin-bottom: 5px;
     }
+
     select {
       font-size: 1.2rem;
       padding: 8px 12px;
       min-width: 200px;
     }
+
     button {
       font-size: 1.3rem;
       padding: 12px 24px;
     }
+
     .note {
       margin-top: 10px;
       font-size: 1rem;
@@ -38,16 +44,16 @@
     }
   </style>
 </head>
-<body>
 
+<body>
   <div class="form-group">
     <label>地域 / Region / Região</label>
     <select id="region">
       <option value="">選択してください</option>
-      <option value="多治見市">多治見市(Tajimicity)</option>
-      <option value="土岐市">土岐市(Tokicity)</option>
-      <option value="可児市">可児市(Kanicity)</option>
-      <option value="美濃加茂市">美濃加茂市(Minokamocity)</option> <!-- ← これを追加 -->
+      <option value="多治見市">多治見市 (Tajimi City)</option>
+      <option value="土岐市">土岐市 (Toki City)</option>
+      <option value="可児市">可児市 (Kani City)</option>
+      <option value="美濃加茂市">美濃加茂市 (Minokamo City)</option>
     </select>
   </div>
 
@@ -62,9 +68,9 @@
     <label>言語 / Language / Língua</label>
     <select id="language">
       <option value="">選択してください</option>
-      <option value="日本語">日本語(Japanese)</option>
-      <option value="英語">英語(English)</option>
-      <option value="ポルトガル語">ポルトガル語(português)</option>
+      <option value="日本語">日本語 (Japanese)</option>
+      <option value="英語">英語 (English)</option>
+      <option value="ポルトガル語">ポルトガル語 (Português)</option>
     </select>
   </div>
 
@@ -131,6 +137,5 @@
       }
     });
   </script>
-
 </body>
 </html>
