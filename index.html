@@ -3,39 +3,75 @@
 <head>
   <meta charset="UTF-8" />
   <title>学校選択</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+    .form-group {
+      margin: 20px 0;
+      text-align: center;
+    }
+    label {
+      display: block;
+      font-size: 1.2rem;
+      margin-bottom: 5px;
+    }
+    select {
+      font-size: 1.2rem;
+      padding: 8px 12px;
+      min-width: 200px;
+    }
+    button {
+      font-size: 1.3rem;
+      padding: 12px 24px;
+    }
+    .note {
+      margin-top: 10px;
+      font-size: 1rem;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
-  <label>地域:
+
+  <div class="form-group">
+    <label>地域 / Region / Região</label>
     <select id="region">
       <option value="">選択してください</option>
       <option value="多治見市">多治見市</option>
       <option value="土岐市">土岐市</option>
       <option value="可児市">可児市</option>
     </select>
-  </label>
+  </div>
 
-  <br><br>
-
-  <label>学校:
+  <div class="form-group">
+    <label>学校 / School / Escola</label>
     <select id="school" disabled>
       <option value="">地域を選択してください</option>
     </select>
-  </label>
+  </div>
 
-  <br><br>
-
-  <label>言語:
+  <div class="form-group">
+    <label>言語 / Language / Língua</label>
     <select id="language">
       <option value="">選択してください</option>
       <option value="日本語">日本語</option>
       <option value="英語">英語</option>
       <option value="ポルトガル語">ポルトガル語</option>
     </select>
-  </label>
-
-  <br><br>
+  </div>
 
   <button id="nextBtn" disabled>次へ</button>
+
+  <div class="note">
+    次のページへ / Go to next page / Ir para a próxima página
+  </div>
 
   <script>
     const API_URL = 'https://script.google.com/macros/s/AKfycbwGwCbo7pwBDOPvFISrrR7UcaKVzyvr1nCZ1bb35aNIRPoS_dSFfj_0YDiw0eEFYQU_-Q/exec';
@@ -82,19 +118,18 @@
     }
 
     nextBtn.addEventListener('click', () => {
-  const selected = data.find(d =>
-    d['地域'] === region.value &&
-    d['学校'] === school.value &&
-    d['言語'] === language.value
-   );
-  if (selected) {
-    window.open(selected['URL'], '_blank');
-  } else {
-    alert('リンク先が見つかりません。');
-  }
-});                           
- 
-
+      const selected = data.find(d =>
+        d['地域'] === region.value &&
+        d['学校'] === school.value &&
+        d['言語'] === language.value
+      );
+      if (selected) {
+        window.open(selected['URL'], '_blank');
+      } else {
+        alert('リンク先が見つかりません。');
+      }
+    });
   </script>
+
 </body>
 </html>
