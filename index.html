@@ -82,17 +82,18 @@
     }
 
     nextBtn.addEventListener('click', () => {
-      const selected = data.find(d =>
-        d['地域'] === region.value &&
-        d['学校'] === school.value &&
-        d['言語'] === language.value
-      );
-      if (selected) {
-        window.location.href = selected['URL'];
-      } else {
-        alert('リンク先が見つかりません。');
-      }
-    });
+  const selected = data.find(d =>
+    d['地域'] === region.value &&
+    d['学校'] === school.value &&
+    d['言語'] === language.value
+  );
+  if (selected) {
+    window.top.location.href = selected['URL'];
+  } else {
+    alert('リンク先が見つかりません。');
+  }
+});
+
   </script>
 </body>
 </html>
