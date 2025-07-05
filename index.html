@@ -86,13 +86,14 @@
     d['地域'] === region.value &&
     d['学校'] === school.value &&
     d['言語'] === language.value
-  );
+   );
   if (selected) {
-    window.top.location.href = selected['URL'];
+    window.open(selected['URL'], '_blank');
   } else {
     alert('リンク先が見つかりません。');
   }
-});
+});                           
+ 
 
   </script>
 </body>
