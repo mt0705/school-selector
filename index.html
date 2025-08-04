@@ -8,9 +8,9 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start; /* ← 中央から上寄せに変更 */
-      min-height: 100vh; /* ← 高さを min に変更 */
-      padding: 40px 20px; /* ← 余白追加 */
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 40px 20px;
       margin: 0;
       font-family: Arial, sans-serif;
     }
@@ -86,21 +86,25 @@
     const language = document.getElementById('language');
     const nextBtn = document.getElementById('nextBtn');
 
+    // データ取得
     fetch(API_URL)
       .then(res => res.json())
       .then(json => {
-          console.log("取得データ:", data); // ←★ここ①
         data = json;
+        console.log("取得したデータ:", data); // ←★①データ内容確認
       });
 
+    // 地域が選ばれたとき
     region.addEventListener('change', () => {
       const selectedRegion = region.value;
-       console.log("選択された地域:", selectedRegion); // ←★ここ②
+      console.log("選ばれた地域:", selectedRegion); // ←★②地域確認
+
       school.innerHTML = '<option value="">選択してください</option>';
+
       if (selectedRegion) {
         const schools = [...new Set(data.filter(d => d['地域'] === selectedRegion).map(d => d['学校']))];
+        console.log("該当する学校一覧:", schools); // ←★③学校名リスト確認
 
-       console.log("学校名一覧:", schoolNames); // ←★ここ③
         schools.forEach(s => {
           const opt = document.createElement('option');
           opt.value = s;
@@ -111,6 +115,7 @@
       } else {
         school.disabled = true;
       }
+
       checkEnable();
     });
 
@@ -139,6 +144,5 @@
     });
   </script>
 </body>
-
 </html>
 
