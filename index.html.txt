@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>学校選択</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start; /* ← 中央から上寄せに変更 */
+      min-height: 100vh; /* ← 高さを min に変更 */
+      padding: 40px 20px; /* ← 余白追加 */
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .form-group {
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      font-size: 1.2rem;
+      margin-bottom: 5px;
+    }
+
+    select {
+      font-size: 1.2rem;
+      padding: 8px 12px;
+      min-width: 200px;
+    }
+
+    button {
+      font-size: 1.3rem;
+      padding: 12px 24px;
+    }
+
+    .note {
+      margin-top: 10px;
+      font-size: 1rem;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="form-group">
+    <label>地域 / Region / Região</label>
+    <select id="region">
+      <option value="">選択してください</option>
+      <option value="各務原市">各務原市 (Kagamigahara City)</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>学校 / School / Escola</label>
+    <select id="school" disabled>
+      <option value="">地域を選択してください</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>言語 / Language / Língua</label>
+    <select id="language">
+      <option value="">選択してください</option>
+      <option value="日本語">日本語 (Japanese)</option>
+      <option value="英語">英語 (English)</option>
+      <option value="ポルトガル語">ポルトガル語 (Português)</option>
+    </select>
+  </div>
+
+  <button id="nextBtn" disabled>次へ</button>
+
+  <div class="note">
+    次のページへ / Go to next page / Ir para a próxima página
+  </div>
+
+  <script>
+    const API_URL = 'https://script.google.com/macros/s/AKfycbzHIfB8IK8l83FwAkXo8AdMB4PYkE670QnAphTouWz_8H6E5SLwE3LXiHxjJiINo5W_lQ/exec;
+    let data = [];
+
+    const region = document.getElementById('region');
+    const school = document.getElementById('school');
+    const language = document.getElementById('language');
+    const nextBtn = document.getElementById('nextBtn');
+
+    fetch(API_URL)
+      .then(res => res.json())
+      .then(json => {
+        data = json;
+      });
+
+    region.addEventListener('change', () => {
+      const selectedRegion = region.value;
+      school.innerHTML = '<option value="">選択してください</option>';
+      if (selectedRegion) {
+        const schools = [...new Set(data.filter(d => d['地域'] === selectedRegion).map(d => d['学校']))];
+        schools.forEach(s => {
+          const opt = document.createElement('option');
+          opt.value = s;
+          opt.textContent = s;
+          school.appendChild(opt);
+        });
+        school.disabled = false;
+      } else {
+        school.disabled = true;
+      }
+      checkEnable();
+    });
+
+    school.addEventListener('change', checkEnable);
+    language.addEventListener('change', checkEnable);
+
+    function checkEnable() {
+      if (school.value && language.value) {
+        nextBtn.disabled = false;
+      } else {
+        nextBtn.disabled = true;
+      }
+    }
+
+    nextBtn.addEventListener('click', () => {
+      const selected = data.find(d =>
+        d['地域'] === region.value &&
+        d['学校'] === school.value &&
+        d['言語'] === language.value
+      );
+      if (selected) {
+        window.open(selected['URL'], '_blank');
+      } else {
+        alert('リンク先が見つかりません。');
+      }
+    });
+  </script>
+</body>
+</html>
