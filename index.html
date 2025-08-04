@@ -89,14 +89,18 @@
     fetch(API_URL)
       .then(res => res.json())
       .then(json => {
+          console.log("取得データ:", data); // ←★ここ①
         data = json;
       });
 
     region.addEventListener('change', () => {
       const selectedRegion = region.value;
+       console.log("選択された地域:", selectedRegion); // ←★ここ②
       school.innerHTML = '<option value="">選択してください</option>';
       if (selectedRegion) {
         const schools = [...new Set(data.filter(d => d['地域'] === selectedRegion).map(d => d['学校']))];
+
+       console.log("学校名一覧:", schoolNames); // ←★ここ③
         schools.forEach(s => {
           const opt = document.createElement('option');
           opt.value = s;
@@ -137,3 +141,4 @@
 </body>
 
 </html>
+
